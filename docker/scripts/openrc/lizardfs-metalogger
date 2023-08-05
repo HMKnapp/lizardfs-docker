@@ -1,0 +1,13 @@
+#!/sbin/openrc-run
+# OpenRC init script for LizardFS metalogger server daemon
+
+description="LizardFS metalogger server daemon"
+command="/usr/sbin/mfsmetalogger"
+
+pidfile="/var/run/mfsmetalogger.pid"
+
+start_stop_daemon_args="--exec ${command} --pidfile ${pidfile} --"
+
+depend() {
+    need net
+}

@@ -1,0 +1,19 @@
+#!/sbin/openrc-run
+# OpenRC init script for LizardFS uraft high availability daemon
+
+description="LizardFS uraft high availability daemon"
+command="/usr/sbin/lizardfs-uraft"
+command_args=""
+command_user="lizardfs"
+pidfile="/var/run/lizardfs-uraft.pid"
+
+start_stop_daemon_args="--exec ${command} --pidfile ${pidfile} --"
+
+depend() {
+    need net
+    use lizardfs-ha-master
+}
+
+stop_post() {
+    /usr/sbin/lizardfs-uraft-helper demote
+}

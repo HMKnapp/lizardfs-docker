@@ -1,0 +1,15 @@
+#!/sbin/openrc-run
+# OpenRC init script for LizardFS HA master server daemon
+
+description="LizardFS HA master server daemon"
+command="/usr/sbin/mfsmaster"
+command_args="-o ha-cluster-managed -o initial-personality=shadow"
+
+pidfile="/var/run/mfsmaster.pid"
+
+start_stop_daemon_args="--exec ${command} --pidfile ${pidfile} --"
+
+depend() {
+    need net
+    use lizardfs-uraft
+}

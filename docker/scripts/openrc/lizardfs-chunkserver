@@ -1,0 +1,14 @@
+#!/sbin/openrc-run
+# OpenRC init script for LizardFS chunkserver daemon
+
+description="LizardFS chunkserver daemon"
+command="/usr/sbin/mfschunkserver"
+command_args="start"
+command_background="yes"
+pidfile="/var/run/mfschunkserver.pid"
+
+start_stop_daemon_args="--exec ${command} --pidfile ${pidfile} --"
+
+depend() {
+    need net
+}

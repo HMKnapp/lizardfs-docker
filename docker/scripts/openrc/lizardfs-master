@@ -1,0 +1,13 @@
+#!/sbin/openrc-run
+# OpenRC init script for LizardFS master server daemon
+
+description="LizardFS master server daemon"
+command="/usr/sbin/mfsmaster"
+
+pidfile="/var/run/mfsmaster.pid"
+
+start_stop_daemon_args="--exec ${command} --pidfile ${pidfile} --"
+
+depend() {
+    need net
+}

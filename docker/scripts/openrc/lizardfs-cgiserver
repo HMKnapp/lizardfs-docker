@@ -1,0 +1,18 @@
+#!/sbin/openrc-run
+# OpenRC init script for LizardFS CGI server daemon
+
+description="LizardFS CGI server daemon"
+command="/usr/sbin/lizardfs-cgiserver"
+command_args="-H 0.0.0.0 -P 9425 -R /usr/share/mfscgi"
+command_user="nobody"
+command_background="yes"
+pidfile="/run/lizardfs-cgiserver.pid"
+
+depend() {
+    need net
+}
+
+start_pre() {
+    # Load the environment variables from the file if it exists
+    [ -r "/etc/default/${SVCNAME}" ] && . "/etc/default/${SVCNAME}"
+}
