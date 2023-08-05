@@ -1,7 +1,7 @@
 FROM alpine:3.18
 
 # Add minimal build dependencies for LizardFS
-RUN apk add --no-cache git cmake build-base boost-dev fuse-dev fuse3-dev zlib-dev fmt-dev spdlog-dev
+RUN apk add --no-cache git cmake build-base boost-dev fuse-dev fuse3-dev zlib-dev fmt-dev spdlog-dev bash python3 python3-dev py3-pip
 
 # Get latest source code from LizardFS repository
 RUN git clone --recursive --depth 1 https://github.com/lizardfs/lizardfs
