@@ -1,5 +1,5 @@
 FROM alpine:3.18
-RUN apk add --no-cache git cmake build-base linux-headers boost-dev python3 python3-dev py3-pip fuse-dev fuse3-dev unzip zlib-dev fmt-dev spdlog-dev
+RUN apk add --no-cache git cmake build-base boost-dev fuse-dev fuse3-dev zlib-dev fmt-dev spdlog-dev
 RUN git clone --recursive https://github.com/lizardfs/lizardfs
 RUN cd lizardfs && \
     export CXXFLAGS="-Wno-error=infinite-recursion" && \
