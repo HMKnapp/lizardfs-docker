@@ -1,19 +1,13 @@
 services:
-  lfs_master:
-    container_name: lfs_master
+  lizardfs-master:
+    environment:
+      - ROLE=master
+    container_name: lizardfs-master
+    hostname: lizardfs-master
     image: lizardfs
     build:
       context: docker/
       dockerfile: Dockerfile
-    ports:
-      - ${PORT_HTTP:-8000}:80
-      - ${PORT_SSL:-8443}:443
-
-  # lgs_volume:
-  #   container_name: lgs_master
-  #   build:
-  #     context: docker/
-  #     dockerfile: Dockerfile
-  #   ports:
-  #     - ${PORT_HTTP:-8000}:80
-  #     - ${PORT_SSL:-8443}:443
+    volumes:
+      - ./data/master:/var/lib/mfs
+      - ./config:/etc/lizardfs
