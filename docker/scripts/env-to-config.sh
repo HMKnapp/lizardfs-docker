@@ -11,8 +11,7 @@ update_setting() {
     value_escaped=$(printf '%s\n' "$value" | sed -e 's/[]\/$*.^[]/\\&/g')
 
     # Use sed to update the specified file
-    sed -i "s|^\($variable[[:space:]]*=[[:space:]]*\).*|\1$value_escaped|; \
-            s|^\(#[[:space:]]*$variable[[:space:]]*=[[:space:]]*\).*|\1$value_escaped|" "$file"
+    sed -i "s|^\(#[[:space:]]\)\?\($variable[[:space:]]*=[[:space:]]*\).*|\2$value_escaped|" "$file"
 }
 
 # Check if a parameter is provided
@@ -59,15 +58,8 @@ for var in "${env_vars[@]}"; do
     if [ -n "${!var+x}" ]; then
         # Get the value of the environment variable
         value="${!var}"
-        
-        # Check if the line exists and uncomment if necessary
-        if grep -qE "^\s*$var\s*=" "$file"; then
+        if [ -n "$value" ]; then
             update_setting "$file" "$var" "$value" ""
-        elif grep -qE "^\s*#$var\s*=" "$file"; then
-            update_setting "$file" "$var" "$value" "#"
-        else
-            # If the line does not exist, add a new line to the end of the file
-            echo "$var = $value" >> "$file"
         fi
     fi
 done
