@@ -38,3 +38,17 @@ services:
     volumes:
       - ./data/metalogger:/var/lib/lizardfs
       - ./config:/etc/lizardfs
+  
+  lizardfs-cgiserver:
+    env_file:
+      - .env
+    environment:
+      - ROLE=cgiserver
+    container_name: lizardfs-cgiserver
+    hostname: lizardfs-cgiserver
+    image: hmknapp/lizardfs
+    volumes:
+      - ./data/metalogger:/var/lib/lizardfs
+      - ./config:/etc/lizardfs
+    ports:
+      - 127.0.0.1:9425:9425
