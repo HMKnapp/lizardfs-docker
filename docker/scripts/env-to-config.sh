@@ -36,7 +36,7 @@ case "${1}" in
         file=mfsmetalogger.cfg
         # map to avoid conflicts with the environment variables of the same name
         LOCK_MEMORY=${ML_LOCK_MEMORY}
-        env_vars=(LOCK_MEMORY BACK_META_KEEP_PREVIOUS META_DOWNLOAD_FREQ)
+        env_vars=(MASTER_HOST LOCK_MEMORY BACK_META_KEEP_PREVIOUS META_DOWNLOAD_FREQ)
         ;;
     disks)
         file=mfshdd.cfg

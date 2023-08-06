@@ -26,3 +26,15 @@ services:
       - ./data/chunkserver:/var/lib/lizardfs
       - ./config:/etc/lizardfs
       - ${LOCAL_MOUNT_ROOT:-/mnt/lizardfs/disks}:/mnt/lizardfs/disks
+
+  lizardfs-metalogger:
+    env_file:
+      - .env
+    environment:
+      - ROLE=metalogger
+    container_name: lizardfs-metalogger
+    hostname: lizardfs-metalogger-${HOSTNAME}
+    image: hmknapp/lizardfs
+    volumes:
+      - ./data/metalogger:/var/lib/lizardfs
+      - ./config:/etc/lizardfs
