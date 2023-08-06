@@ -1,7 +1,7 @@
 FROM alpine:3.18
 
 # Add minimal build dependencies for LizardFS
-RUN apk add --no-cache git cmake build-base boost-dev fuse-dev fuse3-dev zlib-dev fmt-dev spdlog-dev bash python3 python3-dev py3-pip htop vim
+RUN apk add --no-cache git cmake build-base boost-dev fuse fuse-dev fuse3 fuse3-dev zlib-dev fmt-dev spdlog-dev bash python3 python3-dev py3-pip htop vim openssh-server
 
 # Get latest source code from LizardFS repository
 RUN git clone --recursive --depth 1 https://github.com/lizardfs/lizardfs
@@ -26,5 +26,11 @@ COPY scripts/openrc/lizardfs-* /etc/init.d/
 
 # Add entrypoint script
 COPY scripts/*.sh /usr/local/bin/
+
+# For SSH access (sshfs)
+RUN mkdir /var/run/sshd
+RUN sed -i 's/#PermitRootLogin prohibit-password/PermitRootLogin yes/' /etc/ssh/sshd_config
+RUN echo "PermitEmptyPasswords yes" >> /etc/ssh/sshd_config
+RUN ssh-keygen -A
 
 ENTRYPOINT [ "entrypoint.sh" ]

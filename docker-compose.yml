@@ -52,3 +52,21 @@ services:
       - ./config:/etc/lizardfs
     ports:
       - 127.0.0.1:9425:9425
+
+  lizardfs-mount:
+    env_file:
+      - .env
+    environment:
+      - ROLE=mount
+    container_name: lizardfs-mount
+    hostname: lizardfs-mount-${HOSTNAME}
+    image: hmknapp/lizardfs
+    devices:
+      - /dev/fuse
+    cap_add:
+      - SYS_ADMIN
+    volumes:
+      - ./config:/etc/lizardfs
+      - ./mount:/mnt/fuse/
+    ports:
+      - 127.0.0.1:22022:22

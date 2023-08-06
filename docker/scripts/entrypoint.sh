@@ -63,6 +63,12 @@ case "${ROLE}" in
         trap "stop ${pid}" SIGTERM
         exec mfsmaster -d -o ha-cluster-managed -o initial-personality=shadow start
         ;;
+    mount)
+        echo "lizardfs:$ADMIN_PASSWORD" | chpasswd
+        /usr/sbin/sshd
+        exec mfsmount3 -d -o auto_unmount -o allow_other -H ${MASTER_HOST} /mnt/fuse/fuse3
+        FUSE3_PID=$!
+        ;;
     *)
         echo "You must specify which daemon to start!"
         echo "e.g. docker-compose up lizardfs-master
