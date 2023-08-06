@@ -1,14 +1,28 @@
 services:
   lizardfs-master:
+    env_file:
+      - .env
     environment:
       - ROLE=master
     container_name: lizardfs-master
     hostname: lizardfs-master
-    image: lizardfs
+    image: hmknapp/lizardfs
     build:
       context: docker/
       dockerfile: Dockerfile
     volumes:
       - ./data/master:/var/lib/lizardfs
+      - ./config:/etc/lizardfs
+
+  lizardfs-chunkserver:
+    env_file:
+      - .env
+    environment:
+      - ROLE=chunkserver
+    container_name: lizardfs-chunkserver
+    hostname: lizardfs-chunkserver-${HOSTNAME}
+    image: hmknapp/lizardfs
+    volumes:
+      - ./data/chunkserver:/var/lib/lizardfs
       - ./config:/etc/lizardfs
       - ${LOCAL_MOUNT_ROOT:-/mnt/lizardfs/disks}:/mnt/lizardfs/disks
