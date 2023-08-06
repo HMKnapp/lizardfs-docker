@@ -66,7 +66,8 @@ case "${ROLE}" in
     mount)
         echo "lizardfs:$ADMIN_PASSWORD" | chpasswd
         /usr/sbin/sshd
-        exec mfsmount3 -d -o auto_unmount -o allow_other -H ${MASTER_HOST} /mnt/fuse/fuse3
+        mkdir /lfs
+        exec mfsmount3 -d -o auto_unmount -o allow_other -H ${MASTER_HOST} /lfs
         FUSE3_PID=$!
         ;;
     *)

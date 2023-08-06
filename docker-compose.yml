@@ -65,8 +65,5 @@ services:
       - /dev/fuse
     cap_add:
       - SYS_ADMIN
-    volumes:
-      - ./config:/etc/lizardfs
-      - ./mount:/mnt/fuse/
     ports:
       - 127.0.0.1:22022:22
