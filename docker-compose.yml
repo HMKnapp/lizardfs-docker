@@ -9,6 +9,6 @@ services:
       context: docker/
       dockerfile: Dockerfile
     volumes:
-      - ./data/master:/var/lib/mfs
+      - ./data/master:/var/lib/lizardfs
       - ./config:/etc/lizardfs
       - ${LOCAL_MOUNT_ROOT:-/mnt/lizardfs/disks}:/mnt/lizardfs/disks
