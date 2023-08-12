@@ -72,10 +72,10 @@ if [ -n "$disk_paths" ]; then
     
     # Write each disk path to mfshdd.cfg
     for dir in "${disk_paths[@]}"; do
-        if [ ! -d "/mnt/lizardfs/disks/$dir" ]; then
+        if [ ! -d "$LOCAL_MOUNT_ROOT/$dir" ]; then
             echo "Warning: $LOCAL_MOUNT_ROOT/$dir does not exist on host machine!"
             sleep 10
         fi
-        echo "/mnt/lizardfs/disks/$dir" >> "$file"
+        echo "$LOCAL_MOUNT_ROOT/$dir" >> "$file"
     done
 fi
