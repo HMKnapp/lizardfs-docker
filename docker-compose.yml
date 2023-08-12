@@ -13,6 +13,7 @@ services:
     volumes:
       - ./data/master:/var/lib/lizardfs
       - ./config:/etc/lizardfs
+    restart: unless-stopped
 
   lizardfs-chunkserver:
     env_file:
@@ -26,6 +27,7 @@ services:
       - ./data/chunkserver:/var/lib/lizardfs
       - ./config:/etc/lizardfs
       - ${LOCAL_MOUNT_ROOT:-/mnt/lizardfs/disks}:/mnt/lizardfs/disks
+    restart: unless-stopped
 
   lizardfs-metalogger:
     env_file:
@@ -38,6 +40,7 @@ services:
     volumes:
       - ./data/metalogger:/var/lib/lizardfs
       - ./config:/etc/lizardfs
+    restart: unless-stopped
   
   lizardfs-cgiserver:
     env_file:
@@ -52,6 +55,7 @@ services:
       - ./config:/etc/lizardfs
     ports:
       - 127.0.0.1:9425:9425
+    restart: unless-stopped
 
   lizardfs-mount:
     env_file:
@@ -67,3 +71,4 @@ services:
       - SYS_ADMIN
     ports:
       - 127.0.0.1:22022:22
+    restart: unless-stopped
