@@ -20,6 +20,15 @@ if [ $# -eq 0 ]; then
     exit 1
 fi
 
+echo "----------------------------------------"
+echo "Workaround for docker swarm name reoslution"
+echo "Setting ${MASTER_HOST} to ${MASTER_IP}"
+echo "----------------------------------------"
+if [[ ! $(grep -q "${MASTER_HOST}" /etc/hosts) ]]; then
+    echo "Adding ${MASTER_HOST} to /etc/hosts"
+    echo "${MASTER_IP} ${MASTER_HOST}" >> /etc/hosts
+fi
+
 # Select the appropriate file and env_vars based on the parameter value
 case "${1}" in
     chunkserver)

@@ -13,6 +13,10 @@ services:
     volumes:
       - ./data/master:/var/lib/lizardfs
       - ./config:/etc/lizardfs
+    ports:
+      - 9419:9419
+      - 9420:9420
+      - 9421:9421
     restart: unless-stopped
 
   lizardfs-master-arm32:
@@ -29,6 +33,10 @@ services:
     volumes:
       - ./data/master:/var/lib/lizardfs
       - ./config:/etc/lizardfs
+    ports:
+      - 9419:9419
+      - 9420:9420
+      - 9421:9421
     restart: unless-stopped
 
   lizardfs-chunkserver:
