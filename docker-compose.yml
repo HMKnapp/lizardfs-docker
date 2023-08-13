@@ -141,7 +141,7 @@ services:
       - SYS_ADMIN
     ports:
       - 127.0.0.1:22022:22
-    restart: unless-stopped
+    restart: always
 
   lizardfs-mount-arm32:
     env_file:
@@ -157,4 +157,4 @@ services:
       - SYS_ADMIN
     ports:
       - 127.0.0.1:22022:22
-    restart: unless-stopped
+    restart: always
