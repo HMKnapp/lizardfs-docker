@@ -19,10 +19,10 @@ case "${ROLE}" in
         ;;
     cgiserver)
         # cgiserver has mfsmaster hardcoded so we need the IP of MASTER_HOST
-        master_ip=$(getent hosts $MASTER_HOST)
-        master_ip=${master_ip%% *}
+        # master_ip=$(getent hosts $MASTER_HOST)
+        # master_ip=${master_ip%% *}
         # add IP of MASTERHOST as mfsmaster to /etc/hosts
-        su -c 'echo "'$master_ip' mfsmaster" >> /etc/hosts' root
+        su -c 'echo "'${MASTER_IP}' mfsmaster" >> /etc/hosts' root
         exec lizardfs-cgiserver start
         ;;
     master)
