@@ -15,6 +15,11 @@ case "${ROLE}" in
         echo "To make changes permanent, edit .env or pass DISKS variable and restart the container."
         echo
 
+        inotifywait -m -e close_write,moved_to,create /etc/lizardfs/mfschunkserver.cfg | while read -r filename event; do
+            echo "Reloading mfsmount due to change in ${filename}"
+            mfschunkserver reload
+        done &
+
         exec mfschunkserver -d start
         ;;
     cgiserver)
@@ -67,8 +72,8 @@ case "${ROLE}" in
         echo "lizardfs:$ADMIN_PASSWORD" | chpasswd
         /usr/sbin/sshd
         mkdir -p /lfs
-        su -c 'echo "'${MASTER_IP}' '${MASTER_HOST}'" >> /etc/hosts' root
-        exec mfsmount3 -d -o mfscachemode=NO -o readaheadmaxwindowsize=32024 -o cacheexpirationtime=5000 -o auto_unmount -o allow_other -H ${MASTER_HOST} /lfs
+        su -c 'echo "'${MASTER_IP}' '${MASTER_HOST}'" >> /etc/hosts' root      
+        exec mfsmount3 -d -o readaheadmaxwindowsize=32024 -o cacheexpirationtime=5000 -o auto_unmount -o allow_other -H ${MASTER_HOST} /lfs
         FUSE3_PID=$!
         ;;
     *)
