@@ -24,7 +24,7 @@ services:
       - .env
     environment:
       - ROLE=master
-    container_name: lizardfs-master
+    container_name: lizardfs-master-arm32
     hostname: lizardfs-master
     image: hmknapp/lizardfs-arm32
     build:
@@ -60,7 +60,7 @@ services:
       - .env
     environment:
       - ROLE=chunkserver
-    container_name: lizardfs-chunkserver
+    container_name: lizardfs-chunkserver-arm32
     hostname: lizardfs-chunkserver-${HOSTNAME}
     image: hmknapp/lizardfs-arm32
     volumes:
@@ -89,7 +89,7 @@ services:
       - .env
     environment:
       - ROLE=metalogger
-    container_name: lizardfs-metalogger
+    container_name: lizardfs-metalogger-arm32
     hostname: lizardfs-metalogger-${HOSTNAME}
     image: hmknapp/lizardfs-arm32
     volumes:
@@ -117,7 +117,7 @@ services:
       - .env
     environment:
       - ROLE=cgiserver
-    container_name: lizardfs-cgiserver
+    container_name: lizardfs-cgiserver-arm32
     hostname: lizardfs-cgiserver
     image: hmknapp/lizardfs-arm32
     volumes:
@@ -150,7 +150,7 @@ services:
       - .env
     environment:
       - ROLE=mount
-    container_name: lizardfs-mount
+    container_name: lizardfs-mount-arm32
     hostname: lizardfs-mount-${HOSTNAME}
     image: hmknapp/lizardfs-arm32
     devices:
