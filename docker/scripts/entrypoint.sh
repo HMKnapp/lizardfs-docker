@@ -72,7 +72,8 @@ case "${ROLE}" in
         echo "lizardfs:$ADMIN_PASSWORD" | chpasswd
         /usr/sbin/sshd
         mkdir -p /lfs
-        su -c 'echo "'${MASTER_IP}' '${MASTER_HOST}'" >> /etc/hosts' root      
+        su -c 'echo "'${MASTER_IP}' '${MASTER_HOST}'" >> /etc/hosts' root
+        s3proxy --properties /etc/s3proxy.conf &
         exec mfsmount3 -d -o readaheadmaxwindowsize=32024 -o cacheexpirationtime=5000 -o auto_unmount -o allow_other -H ${MASTER_HOST} /lfs
         FUSE3_PID=$!
         ;;

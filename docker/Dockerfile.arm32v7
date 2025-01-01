@@ -10,7 +10,7 @@ RUN echo "PermitEmptyPasswords yes" >> /etc/ssh/sshd_config
 RUN ssh-keygen -A
 
 # Add minimal build dependencies for LizardFS
-RUN apk add --no-cache git cmake build-base boost-dev fuse fuse-dev fuse3 fuse3-dev zlib-dev fmt-dev spdlog-dev bash python3 python3-dev py3-pip htop vim openssh-server
+RUN apk add --no-cache git cmake build-base boost-dev fuse fuse-dev fuse3 fuse3-dev zlib-dev fmt-dev spdlog-dev bash python3 python3-dev py3-pip htop vim openssh-server openjdk17-jre-headless
 
 # Get latest source code from LizardFS repository
 RUN git clone --recursive --depth 1 https://github.com/lizardfs/lizardfs
@@ -35,5 +35,10 @@ COPY scripts/openrc/lizardfs-* /etc/init.d/
 
 # Add entrypoint script
 COPY scripts/*.sh /usr/local/bin/
+
+# Add possibility of an S3-compatible interface as alternative to SSHFS
+RUN wget -O /usr/local/bin/s3proxy https://github.com/gaul/s3proxy/releases/download/s3proxy-2.5.0/s3proxy
+RUN chmod +x /usr/local/bin/s3proxy
+RUN mkdir /s3bucket
 
 ENTRYPOINT [ "entrypoint.sh" ]

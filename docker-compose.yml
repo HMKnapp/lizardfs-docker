@@ -141,8 +141,10 @@ services:
       - SYS_ADMIN
     volumes:
       - ./data/mount/ssh:/home/lizardfs/.ssh
+      - ./config/s3proxy.conf:/etc/s3proxy.conf
     ports:
       - 127.0.0.1:22022:22
+      - 127.0.0.1:22888:22888
     restart: always
 
   lizardfs-mount-arm32:
@@ -159,6 +161,8 @@ services:
       - SYS_ADMIN
     volumes:
       - ./data/mount/ssh:/home/lizardfs/.ssh
+      - ./config/s3proxy.conf:/etc/s3proxy.conf
     ports:
       - 127.0.0.1:22022:22
+      - 127.0.0.1:22888:22888
     restart: always
