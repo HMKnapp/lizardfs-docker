@@ -10,7 +10,7 @@ RUN echo "PermitEmptyPasswords yes" >> /etc/ssh/sshd_config
 RUN ssh-keygen -A
 
 # Add minimal build dependencies for LizardFS
-RUN apk add --no-cache git cmake build-base boost-dev fuse fuse-dev fuse3 fuse3-dev zlib-dev fmt-dev spdlog-dev bash python3 python3-dev py3-pip htop vim openssh-server
+RUN apk add --no-cache git cmake build-base boost-dev fuse fuse-dev fuse3 fuse3-dev zlib-dev fmt-dev spdlog-dev bash python3 python3-dev py3-pip htop vim openssh-server openjdk17-jre-headless rsync
 
 # Get latest source code from LizardFS repository
 RUN git clone --recursive --depth 1 --branch 3.13-rc4-testing https://github.com/lizardfs/lizardfs
